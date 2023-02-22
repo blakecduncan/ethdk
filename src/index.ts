@@ -1,8 +1,8 @@
-const test = () => {
-    console.log('test');
-    return 'test';
-};
+const test = (): string => {
+  console.log('test')
+  return 'test'
+}
 
 export {
-    test,
+  test
 }
