@@ -1,3 +1,4 @@
+import { BlsWalletWrapper } from 'bls-wallet-clients'
 import Account from './Account'
 
 export default class Ethdk {
@@ -12,5 +13,9 @@ export default class Ethdk {
 
   static async createAccount (privateKey?: string): Promise<Account> {
     return await Account.createAccount(privateKey)
+  }
+
+  static async generatePrivateKey (): Promise<string> {
+    return BlsWalletWrapper.getRandomBlsPrivateKey()
   }
 }
