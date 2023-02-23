@@ -1,8 +1,7 @@
-const test = (): string => {
-  console.log('test')
-  return 'test'
-}
+import EthDK from './EthDK'
+import Account from './Account'
 
 export {
-  test
+  EthDK,
+  Account
 }

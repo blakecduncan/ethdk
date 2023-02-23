@@ -11,6 +11,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json'
   },
+  ignorePatterns: ['test/**/*', 'dist/**/*', 'node_modules/**/*'],
   rules: {
     indent: ['error', 2]
   }

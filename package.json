@@ -17,6 +17,10 @@
     "test": "mocha -r ts-node/register -r ./test/init.ts test/**/*.ts",
     "lint": "eslint src/**/*.ts"
   },
+  "dependencies": {
+    "bls-wallet-clients": "0.8.2-77f1638",
+    "ethers": "^5.7.2"
+  },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
