@@ -16,6 +16,6 @@ export default class Ethdk {
   }
 
   static async generatePrivateKey (): Promise<string> {
-    return BlsWalletWrapper.getRandomBlsPrivateKey()
+    return await BlsWalletWrapper.getRandomBlsPrivateKey()
   }
 }
