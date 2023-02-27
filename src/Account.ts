@@ -60,4 +60,21 @@ export default class Account {
 
     return result.hash
   }
+
+  async setTrustedAccount (salt: string, trustedAccountAddress: string): Promise<string> {
+    const bundle = await this.wallet.getSetRecoveryHashBundle(
+      salt,
+      trustedAccountAddress
+    )
+
+    const { aggregatorUrl } = NETWORKS.localhost
+    const agg = new Aggregator(aggregatorUrl)
+    const result = await agg.add(bundle)
+
+    if ('failures' in result) {
+      throw new Error(JSON.stringify(result))
+    }
+
+    return result.hash
+  }
 }
