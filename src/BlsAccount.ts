@@ -1,16 +1,12 @@
 import { BlsWalletWrapper, Aggregator } from 'bls-wallet-clients'
 import { ethers } from 'ethers'
 import { NETWORKS } from './constants'
+import type Account from './interfaces/Account'
+import type SendTransactionParams from './interfaces/SendTransactionParams'
 
-export interface SendTransactionParams {
-  to: string
-  from?: string
-  gas?: string
-  gasPrice?: string
-  value?: string
-  data?: string
-}
-export default class Account {
+export default class BlsAccount implements Account {
+  public static accountType: string = 'bls'
+
   address: string
   private readonly privateKey: string | Promise<string>
   private readonly wallet: BlsWalletWrapper
@@ -21,7 +17,7 @@ export default class Account {
     this.address = wallet.address
   }
 
-  static async createAccount (privateKey?: string): Promise<Account> {
+  static async createAccount (privateKey?: string): Promise<BlsAccount> {
     const pk = privateKey ?? await BlsWalletWrapper.getRandomBlsPrivateKey()
 
     const wallet = await BlsWalletWrapper.connect(
@@ -30,11 +26,10 @@ export default class Account {
       new ethers.providers.JsonRpcProvider(NETWORKS.localhost.rpcUrl)
     )
 
-    return new Account(pk, wallet)
+    return new BlsAccount(pk, wallet)
   }
 
   async sendTransaction (params: SendTransactionParams[]): Promise<string> {
-    // TODO: Implement user transaction approval
     const actions = params.map((tx) => ({
       ethValue: tx.value ?? '0',
       contractAddress: tx.to,

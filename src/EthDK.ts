@@ -1,21 +1,14 @@
 import { BlsWalletWrapper } from 'bls-wallet-clients'
-import Account from './Account'
+import BlsAccount from './BlsAccount'
+import type Account from './interfaces/Account'
 
-export default class Ethdk {
-  public walletType: string
-
-  constructor (walletType: string) {
-    if (walletType !== 'bls') {
-      throw new Error('Unsupported wallet type')
-    }
-    this.walletType = walletType
+export async function createAccount (accountType: string, privateKey?: string): Promise<Account> {
+  if (accountType === BlsAccount.accountType) {
+    return await BlsAccount.createAccount(privateKey)
   }
+  throw new Error('Unsupported account type')
+}
 
-  static async createAccount (privateKey?: string): Promise<Account> {
-    return await Account.createAccount(privateKey)
-  }
-
-  static async generatePrivateKey (): Promise<string> {
-    return await BlsWalletWrapper.getRandomBlsPrivateKey()
-  }
+export async function generatePrivateKey (): Promise<string> {
+  return await BlsWalletWrapper.getRandomBlsPrivateKey()
 }

@@ -1,7 +1,6 @@
-import EthDK from './Ethdk'
-import Account from './Account'
+import { createAccount, generatePrivateKey } from './Ethdk'
 
 export {
-  EthDK,
-  Account
+  createAccount,
+  generatePrivateKey
 }
